@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="#" method="post" class="input">
+            <label for="name">Enter the owner's name:</label>
+            <input type="text" id="ownername" name="name" placeholder="Name"><br><br>
+            
+            <label for="contact">Enter the owner's contact:</label>
+            <input type="text" id="contact" name="contact" placeholder="Contact"><br><br>
+            
+            <label for="area">Enter the area in sqft.:</label>
+            <input type="text" id="area" name="area" placeholder="Area"><br><br>
+            
+            <label for="price">Enter the price in INR:</label>
+            <input type="text" id="price" name="price" placeholder="Price"><br><br>
+
+        </form>
+        <div id="img">
+            <img src="" id="qrImage">
+        </div>
+        <button onclick="qrGenerator()">Generate QR</button>
+
+    </div>
+    <script>
+        let img=document.getElementById("img");
+        let qrImage=document.getElementById("qrImage");
+        let qrText=document.getElementById("qrText");
+        let ownername=document.getElementById("ownername");
+        let contact=document.getElementById("contact");
+        let area=document.getElementById("area");
+        let price=document.getElementById("price");
+
+
+        function qrGenerator() {
+            if (ownername.value.length > 0) {
+                const formData = {
+                    "Name": ownername.value,
+                    "Contact": contact.value,
+                    "Area": area.value,
+                    "Price": price.value
+                };
+
+                const jsonData = JSON.stringify(formData);
+                qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(jsonData);
+                img.classList.add("imgDisplay");
+            } else {
+                alert("Please enter the details");
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
